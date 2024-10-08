@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import EmailVerify from './components/EmailVerify'
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import LoginModal from './components/LoginModal';
+import Error from "./components/Error";
+import { LoginRouteProtected } from './components/LoginRouteProtected';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Outlet />
     </div>
-  );
+  )
 }
 
-export default App;
+const appRouter = createBrowserRouter([
+  {
+    path:"/",
+    element:<App />,
+    errorElement:<Error />,
+    children :[
+      {
+        path:"/",
+        element:<EmailVerify />,
+      },
+      {
+        path:"/login",
+        element:(
+          <LoginRouteProtected>
+            <LoginModal />
+          </LoginRouteProtected>
+        ),
+      },
+    ],
+  },
+])
+
+export default appRouter;
