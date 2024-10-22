@@ -4,6 +4,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import LoginModal from './components/LoginModal';
 import Error from "./components/Error";
 import { LoginRouteProtected } from './components/LoginRouteProtected';
+import Dashboard from './components/Dashboard';
 
 const App = () => {
   return (
@@ -23,14 +24,18 @@ const appRouter = createBrowserRouter([
         path:"/",
         element:<EmailVerify />,
       },
+      // {
+      //   path:"/login",
+      //   element:(
+      //     <LoginRouteProtected>
+      //       <LoginModal />
+      //     </LoginRouteProtected>
+      //   ),
+      // },
       {
-        path:"/login",
-        element:(
-          <LoginRouteProtected>
-            <LoginModal />
-          </LoginRouteProtected>
-        ),
-      },
+        path:'/dashboard',
+        element:<Dashboard />
+      }
     ],
   },
 ])
