@@ -10,7 +10,7 @@ const Home = () => {
         {/* Horizontal scrolling container */}
         <div className="overflow-x-auto">
           <table className="min-w-full table-auto border-collapse border border-gray-300">
-            <thead className="bg-blue-500 text-white">
+            <thead className="bg-indigo-200 text-white">
               <tr>
                 <th className="border border-gray-300 p-2 italic whitespace-nowrap">
                   Company Name
@@ -38,6 +38,12 @@ const Home = () => {
                 </th>
                 <th className="border border-gray-300 p-2 italic whitespace-nowrap">
                   Budget
+                </th>
+                <th className="border border-gray-300 p-2 italic whitespace-nowrap">
+                  Status
+                </th>
+                <th className="border border-gray-300 p-2 italic whitespace-nowrap">
+                  Action
                 </th>
               </tr>
             </thead>
@@ -76,6 +82,13 @@ const Home = () => {
                   </td>
                   <td className="border border-gray-300 p-2 italic whitespace-nowrap">
                     {row.budget}
+                  </td>
+                  <td className="border border-gray-300 p-2 italic whitespace-nowrap">
+                
+                  </td>
+                  <td className="flex border border-gray-300 p-2 italic whitespace-nowrap">
+                    <button className="p-1 font-thin italic bg-red-400 rounded hover:scale-105 transition-all duration-300 ease-in-out">Done</button>
+                    <button className="p-1 font-thin italic bg-green-400 rounded ml-2 hover:scale-105 transition-all duration-300 ease-in-out">Active</button>
                   </td>
                 </tr>
               ))}
@@ -90,7 +103,7 @@ const Home = () => {
         {/* Horizontal scrolling container */}
         <div className="overflow-x-auto">
           <table className="min-w-full table-auto border-collapse border border-gray-300">
-            <thead className="bg-blue-500 text-white">
+            <thead className="bg-indigo-200 text-white">
               <tr>
                 <th className="border border-gray-300 p-2 italic whitespace-nowrap">
                   Company Name
@@ -118,6 +131,12 @@ const Home = () => {
                 </th>
                 <th className="border border-gray-300 p-2 italic whitespace-nowrap">
                   Budget
+                </th>
+                <th className="border border-gray-300 p-2 italic whitespace-nowrap">
+                  Status
+                </th>
+                <th className="border border-gray-300 p-2 italic whitespace-nowrap">
+                  Action
                 </th>
               </tr>
             </thead>
@@ -156,6 +175,13 @@ const Home = () => {
                   </td>
                   <td className="border border-gray-300 p-2 italic whitespace-nowrap">
                     {row.budget}
+                  </td>
+                  <td className="border border-gray-300 p-2 italic whitespace-nowrap">
+                
+                  </td>
+                  <td className="flex border border-gray-300 p-2 italic whitespace-nowrap">
+                    <button className="p-1 font-thin italic bg-red-400 rounded hover:scale-110 transition-all duration-300 ease-in-out">Done</button>
+                    <button className="p-1 font-thin italic bg-green-400 rounded ml-2 hover:scale-110 transition-all duration-300 ease-in-out">Active</button>
                   </td>
                 </tr>
               ))}
