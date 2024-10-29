@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Home from "./Home";
 import Requirements from "./Requirements";
+import ToDo from "./ToDo";
+import Payment from "./Payment";
 
 const Dashboard = () => {
   const [mainContent, setMainContent] = useState("Dashboard");
   const [expanded, setExpanded] = useState(true);
   const [dropDown, setDropdown] = useState(false);
-  const [rightExpanded, setRightExpanded] = useState(true);
+  const [rightExpanded, setRightExpanded] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   // Components for the main section based on selection
   const renderMainContent = () => {
@@ -39,9 +43,9 @@ const Dashboard = () => {
       case "Buisness Type":
         return <Requirements data={mainContent} />;
       case "ToDo":
-        return <Requirements data={mainContent} />;
+        return <Home />;
       case "Payment":
-        return <Requirements data={mainContent} />;
+        return <Home />;
       default:
         return <div>Welcome to the Dashboard!</div>;
     }
@@ -74,7 +78,7 @@ const Dashboard = () => {
               )}
             </button>
           </div>
-          <ul className="flex-1 px-3 overflow-scroll hide-scrollbar">
+          <ul className="flex-1 px-3 overflow-scroll hide-scrollbar mb-4">
             <li
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Dashboard" ? "bg-indigo-200" : "bg-white"
@@ -103,8 +107,11 @@ const Dashboard = () => {
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Users" ? "bg-indigo-200" : "bg-white"
               } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+                !expanded
+                  ? mainContent === "Users"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Users")}
               style={{
@@ -143,7 +150,7 @@ const Dashboard = () => {
                 (dropDown === true ? (
                   <i className="bi bi-chevron-double-up ml-20"></i>
                 ) : (
-                  <i class="bi bi-chevron-double-down ml-20"></i>
+                  <i className="bi bi-chevron-double-down ml-20"></i>
                 ))}
             </li>
             {dropDown && (
@@ -154,8 +161,11 @@ const Dashboard = () => {
                       ? "bg-indigo-200"
                       : "bg-white"
                   } ${
-                    !expanded &&
-                    "bg-transparent hover:bg-indigo-200 hover:text-white"
+                    !expanded
+                      ? mainContent === "Requirements"
+                        ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                        : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                      : ""
                   }`}
                   onClick={() => setMainContent("Requirements")}
                   style={{
@@ -175,9 +185,12 @@ const Dashboard = () => {
                     mainContent === "Buisness Type"
                       ? "bg-indigo-200"
                       : "bg-white"
-                  } ${
-                    !expanded &&
-                    "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  }  ${
+                    !expanded
+                      ? mainContent === "Buisness Type"
+                        ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                        : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                      : ""
                   }`}
                   onClick={() => setMainContent("Buisness Type")}
                   style={{
@@ -199,8 +212,11 @@ const Dashboard = () => {
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Enquiry" ? "bg-indigo-200" : "bg-white"
               } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+                !expanded
+                  ? mainContent === "Enquiry"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Enquiry")}
               style={{
@@ -219,8 +235,11 @@ const Dashboard = () => {
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Filter" ? "bg-indigo-200" : "bg-white"
               } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+                !expanded
+                  ? mainContent === "Filter"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Filter")}
               style={{
@@ -241,8 +260,11 @@ const Dashboard = () => {
                   ? "bg-indigo-200"
                   : "bg-white"
               } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+                !expanded
+                  ? mainContent === "Success Enquiries"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Success Enquiries")}
               style={{
@@ -260,9 +282,12 @@ const Dashboard = () => {
             <li
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Filter Users" ? "bg-indigo-200" : "bg-white"
-              } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+              }  ${
+                !expanded
+                  ? mainContent === "Filter Users"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Filter Users")}
               style={{
@@ -280,9 +305,12 @@ const Dashboard = () => {
             <li
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Search" ? "bg-indigo-200" : "bg-white"
-              } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+              }  ${
+                !expanded
+                  ? mainContent === "Search"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Search")}
               style={{
@@ -295,14 +323,17 @@ const Dashboard = () => {
                   !expanded && "hover:scale-110"
                 }`}
               ></i>
-              {expanded && "Search Database"}
+              {expanded && "Search"}
             </li>
             <li
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Trash" ? "bg-indigo-200" : "bg-white"
-              } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+              }  ${
+                !expanded
+                  ? mainContent === "Trash"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Trash")}
               style={{
@@ -315,14 +346,17 @@ const Dashboard = () => {
                   !expanded && "hover:scale-110"
                 }`}
               ></i>
-              {expanded && "Trash Section"}
+              {expanded && "Trash Enquiries"}
             </li>
             <li
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Followup" ? "bg-indigo-200" : "bg-white"
-              } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+              }  ${
+                !expanded
+                  ? mainContent === "Followup"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Followup")}
               style={{
@@ -342,9 +376,12 @@ const Dashboard = () => {
                 mainContent === "Download Database"
                   ? "bg-indigo-200"
                   : "bg-white"
-              } ${
-                !expanded &&
-                "bg-transparent hover:bg-indigo-200 hover:text-white"
+              }  ${
+                !expanded
+                  ? mainContent === "Download Database"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
               }`}
               onClick={() => setMainContent("Download Database")}
               style={{
@@ -358,6 +395,61 @@ const Dashboard = () => {
                 }`}
               ></i>
               {expanded && "Download Database"}
+            </li>
+
+            <li
+              className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
+                mainContent === "ToDo" ? "bg-indigo-200" : "bg-white"
+              } ${
+                !expanded
+                  ? mainContent === "ToDo"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
+              }`}
+              onClick={() => {
+                setMainContent("ToDo");
+                {
+                  rightExpanded === true
+                    ? setRightExpanded(false)
+                    : setRightExpanded(true);
+                }
+              }}
+              style={{
+                minWidth: expanded ? "150px" : "16px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <i
+                className={`bi bi-list-task mr-4 pl-1.5 transition-all ${
+                  !expanded && "hover:scale-110"
+                }`}
+              ></i>
+              {expanded && "To-do List"}
+            </li>
+
+            <li
+              className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
+                mainContent === "Payment" ? "bg-indigo-200" : "bg-white"
+              } ${
+                !expanded
+                  ? mainContent === "Payment"
+                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
+                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
+                  : ""
+              }`}
+              onClick={() => setMainContent("Payment")}
+              style={{
+                minWidth: expanded ? "150px" : "16px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <i
+                className={`bi bi-credit-card mr-4 pl-1.5 transition-all ${
+                  !expanded && "hover:scale-110"
+                }`}
+              ></i>
+              {expanded && "Payment"}
             </li>
           </ul>
           <div className="border-t flex p-3 items-center">
@@ -399,73 +491,16 @@ const Dashboard = () => {
 
       {/* Right Sidebar */}
       <aside
-        className={`h-screen transition-all duration-300 ease-in-out overflow-hidden ${
-          rightExpanded ? "w-56" : "w-16"
-        } bg-gray-100 border-l`}
-      >
-        <nav className="h-full flex flex-col bg-gray-100 shadow-sm">
-          <div className="p-4 pb-2 flex justify-between items-center">
-            <button
-              className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-300"
-              onClick={() => setRightExpanded(!rightExpanded)}
-            >
-              {rightExpanded ? (
-                <i className="bi bi-arrow-right text-black"></i>
-              ) : (
-                <i className="bi bi-arrow-left text-black"></i>
-              )}
-            </button>
-          </div>
-          <ul className="flex-1 px-3 overflow-scroll hide-scrollbar">
-            <li
-              className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
-                mainContent === "ToDo" ? "bg-indigo-200" : "bg-white"
-              } ${
-                !rightExpanded
-                  ? mainContent === "ToDo"
-                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
-                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
-                  : ""
-              }`}
-              onClick={() => setMainContent("ToDo")}
-              style={{
-                minWidth: rightExpanded ? "150px" : "16px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <i
-                className={`bi bi-list-task mr-4 pl-1.5 transition-all ${
-                  !rightExpanded && "hover:scale-110"
-                }`}
-              ></i>
-              {rightExpanded && "To-do List"}
-            </li>
-            <li
-              className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
-                mainContent === "Payment" ? "bg-indigo-200" : "bg-white"
-              } ${
-                !rightExpanded
-                  ? mainContent === "Payment"
-                    ? "bg-indigo-200 hover:bg-indigo-200 hover:text-white"
-                    : "bg-transparent hover:bg-indigo-200 hover:text-white"
-                  : ""
-              }`}
-              onClick={() => setMainContent("Payment")}
-              style={{
-                minWidth: rightExpanded ? "150px" : "16px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <i
-                className={`bi bi-credit-card mr-4 pl-1.5 transition-all ${
-                  !rightExpanded && "hover:scale-110"
-                }`}
-              ></i>
-              {rightExpanded && "Payment"}
-            </li>
-          </ul>
-        </nav>
-      </aside>
+      className={`h-screen transition-all duration-300 ease-in-out overflow-hidden ${
+        rightExpanded ? (isEditing ? "w-[50%]" : "w-[30%]") : "w-0"
+      } bg-gray-100 border-l`}
+    >
+      {mainContent === "ToDo" ? (
+        <ToDo />
+      ) : (
+        <Payment onEditingChange={setIsEditing} />
+      )}
+    </aside>
     </div>
   );
 };
