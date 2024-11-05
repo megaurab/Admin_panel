@@ -4,14 +4,17 @@ import Home from "./Home";
 import Requirements from "./Requirements";
 import ToDo from "./ToDo";
 import Payment from "./Payment";
+import AddEnquiry from "./AddEnquiry";
 
 const Dashboard = () => {
   const [mainContent, setMainContent] = useState("Dashboard");
+  const [isToDoExpanded, setIsToDoExpanded] = useState(false);
+  const [isPaymentExpanded, setIsPaymentExpanded] = useState(false);
   const [expanded, setExpanded] = useState(true);
   const [dropDown, setDropdown] = useState(false);
-  const [rightExpanded, setRightExpanded] = useState(false);
+  // const [rightExpanded, setRightExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [showOverlay, setShowOverlay] = useState(false);
+  // const [showOverlay, setShowOverlay] = useState(false);
 
   // Components for the main section based on selection
   const renderMainContent = () => {
@@ -23,7 +26,7 @@ const Dashboard = () => {
       // case "Masters":
       //   return <div>Master Records</div>;
       case "Enquiry":
-        return <div>Enquiry Management</div>;
+        return <AddEnquiry />;
       case "Filter":
         return <div>Filter Options</div>;
       case "Success Enquiries":
@@ -409,10 +412,9 @@ const Dashboard = () => {
               }`}
               onClick={() => {
                 setMainContent("ToDo");
-                {
-                  rightExpanded === true
-                    ? setRightExpanded(false)
-                    : setRightExpanded(true);
+                setIsToDoExpanded(!isToDoExpanded);
+                if (isToDoExpanded) {
+                  setIsPaymentExpanded(false);
                 }
               }}
               style={{
@@ -428,6 +430,7 @@ const Dashboard = () => {
               {expanded && "To-do List"}
             </li>
 
+            {/* Payment Button */}
             <li
               className={`mt-3 italic font-semibold rounded-xl p-1 cursor-pointer transition-all duration-300 ease-in-out ${
                 mainContent === "Payment" ? "bg-indigo-200" : "bg-white"
@@ -438,7 +441,13 @@ const Dashboard = () => {
                     : "bg-transparent hover:bg-indigo-200 hover:text-white"
                   : ""
               }`}
-              onClick={() => setMainContent("Payment")}
+              onClick={() => {
+                setMainContent("Payment");
+                setIsPaymentExpanded(!isPaymentExpanded);
+                if (isPaymentExpanded) {
+                  setIsToDoExpanded(false);
+                }
+              }}
               style={{
                 minWidth: expanded ? "150px" : "16px",
                 whiteSpace: "nowrap",
@@ -490,17 +499,27 @@ const Dashboard = () => {
       </main>
 
       {/* Right Sidebar */}
-      <aside
-      className={`h-screen transition-all duration-300 ease-in-out overflow-hidden ${
-        rightExpanded ? (isEditing ? "w-[50%]" : "w-[30%]") : "w-0"
-      } bg-gray-100 border-l`}
-    >
-      {mainContent === "ToDo" ? (
-        <ToDo />
-      ) : (
-        <Payment onEditingChange={setIsEditing} />
+       {/* Right Sidebar for ToDo */}
+       {mainContent === "ToDo" && (
+        <aside
+          className={`h-screen transition-all duration-300 ease-in-out overflow-hidden ${
+            isToDoExpanded ? (isEditing ? "w-[50%]" : "w-[40%]") : "w-0"
+          } bg-gray-100 border-l`}
+        >
+          <ToDo />
+        </aside>
       )}
-    </aside>
+
+      {/* Right Sidebar for Payment */}
+      {mainContent === "Payment" && (
+        <aside
+          className={`h-screen transition-all duration-300 ease-in-out overflow-hidden ${
+            isPaymentExpanded ? (isEditing ? "w-[50%]" : "w-[40%]") : "w-0"
+          } bg-gray-100 border-l`}
+        >
+          <Payment onEditingChange={setIsEditing} />
+        </aside>
+      )}
     </div>
   );
 };

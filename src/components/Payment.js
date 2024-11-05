@@ -29,9 +29,25 @@ const Payment = ({ onEditingChange }) => {
     );
   };
 
+  const handleAddNewRecord = () => {
+    const newRecord = {
+      id: payments.length + 1, // Generate a unique ID, ideally you should use a better unique ID generator
+      name: '',
+      date: '',
+      amount: '',
+      done: false,
+      isEditing: true,
+    };
+    setPayments((prev) => [...prev, newRecord]);
+  };
+
+  const handleDeleteClick = (id) => {
+    setPayments((prev) => prev.filter((payment) => payment.id !== id));
+  };
+
   return (
-    <div className="h-full px-4"> {/* Add padding on x-axis */}
-      <div className="flex h-full justify-start items-center flex-col">
+    <div className="h-full px-4 overflow-y-auto max-h-[80vh]"> {/* Adjust max height as needed */}
+      <div className="flex h-full justify-start items-center flex-col w-full">
         <label className="mt-4 font-semibold text-lg italic">Payment details for today:</label>
         <table className="mt-4 border-collapse w-full">
           <thead>
@@ -90,7 +106,7 @@ const Payment = ({ onEditingChange }) => {
                     className="cursor-pointer italic"
                   />
                 </td>
-                <td className="p-2 border italic whitespace-nowrap">
+                <td className="p-2 border italic whitespace-nowrap flex gap-2 justify-center">
                   {payment.isEditing ? (
                     <button
                       onClick={() => handleSaveClick(payment.id)}
@@ -106,11 +122,25 @@ const Payment = ({ onEditingChange }) => {
                       Edit
                     </button>
                   )}
+                  {/* Delete button */}
+                  <button
+                    onClick={() => handleDeleteClick(payment.id)}
+                    className="px-2 py-1 bg-red-500 text-white rounded italic"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        {/* Add New Record Button */}
+        <button
+          onClick={handleAddNewRecord}
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded italic"
+        >
+          Add New Record
+        </button>
       </div>
     </div>
   );
