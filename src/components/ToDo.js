@@ -1,9 +1,13 @@
 import React, { useRef, useState } from "react";
 import ToDoItems from "./ToDoItems";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../utils/store/todoList";
 
 const ToDo = () => {
   const [todoList, setTodoList] = useState([]);
   const inputRef = useRef();
+
+  const dispatch = useDispatch();
 
   const add = () => {
     const inputText = inputRef.current.value.trim();
@@ -23,6 +27,14 @@ const ToDo = () => {
 
   const deleteTodo = (id) => {
     setTodoList((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
+  const toggleComplete = (id) => {
+    setTodoList((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo
+      )
+    );
   };
 
   return (
@@ -49,7 +61,9 @@ const ToDo = () => {
             key={item.id}
             id={item.id}
             text={item.text}
+            isComplete={item.isComplete}
             deleteTodo={deleteTodo}
+            toggleComplete={toggleComplete}
           />
         ))}
       </div>

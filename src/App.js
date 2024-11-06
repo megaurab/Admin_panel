@@ -1,28 +1,32 @@
-import React from 'react'
-import EmailVerify from './components/EmailVerify'
+import React from "react";
+import EmailVerify from "./components/EmailVerify";
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import LoginModal from './components/LoginModal';
+import LoginModal from "./components/LoginModal";
 import Error from "./components/Error";
-import { LoginRouteProtected } from './components/LoginRouteProtected';
-import Dashboard from './components/Dashboard';
+import { LoginRouteProtected } from "./components/LoginRouteProtected";
+import Dashboard from "./components/Dashboard";
+import { Provider } from "react-redux";
+import appStore from "./utils/store/appStore";
 
 const App = () => {
   return (
-    <div>
-      <Outlet />
-    </div>
-  )
-}
+    <Provider store={appStore}>
+      <div>
+        <Outlet />
+      </div>
+    </Provider>
+  );
+};
 
 const appRouter = createBrowserRouter([
   {
-    path:"/",
-    element:<App />,
-    errorElement:<Error />,
-    children :[
+    path: "/",
+    element: <App />,
+    errorElement: <Error />,
+    children: [
       {
-        path:"/",
-        element:<EmailVerify />,
+        path: "/",
+        element: <EmailVerify />,
       },
       // {
       //   path:"/login",
@@ -33,11 +37,11 @@ const appRouter = createBrowserRouter([
       //   ),
       // },
       {
-        path:'/dashboard',
-        element:<Dashboard />
-      }
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
     ],
   },
-])
+]);
 
 export default appRouter;
