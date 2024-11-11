@@ -1,7 +1,26 @@
 import React, { useState } from "react";
+import { useDispatch} from "react-redux";
+import { addRequirement } from "../utils/store/requirementsSlice";
+import { addBusinessType } from "../utils/store/buisnesstypeSlice";
 
 const Requirements = ({data}) => {
   const [status, setStatus] = useState(false); // Status for the slide button
+  const [requirement, setRequirement] = useState("");
+  // const requirementsList = useSelector((store)=>store.buisnessType.data);
+  // console.log(requirementsList);
+  const dispatch = useDispatch();
+
+  const handleClick = (event) => {
+     event.preventDefault();
+      // Dispatch only the requirement name to the Redux store
+      if(data === "Requirements"){
+       dispatch(addRequirement(requirement.trim()));
+       setRequirement(""); // Clear the input field after saving
+      }
+      if(data ==="Buisness Type"){
+        dispatch(addBusinessType(requirement.trim()));
+      }
+  };
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center">
@@ -10,6 +29,8 @@ const Requirements = ({data}) => {
         <input
           className="italic bg-slate-200 p-3 mb-4 w-full rounded-lg"
           placeholder="Enter requirements"
+          value={requirement}
+          onChange={(e) => setRequirement(e.target.value)}
         />
 
         <label className="italic mb-2 text-lg">Description:</label>
@@ -34,7 +55,7 @@ const Requirements = ({data}) => {
             </label>
           </div>
           <div>
-            <button className="italic mt-6 mr-2 p-2 bg-orange-300 rounded hover:scale-110 transition-all duration-300 ease-in-out">Save</button>
+            <button onClick={handleClick} className="italic mt-6 mr-2 p-2 bg-orange-300 rounded hover:scale-110 transition-all duration-300 ease-in-out">Save</button>
           </div>
         </div>
       </form>

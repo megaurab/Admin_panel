@@ -1,13 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import ToDoItems from "./ToDoItems";
-import { useDispatch } from "react-redux";
-import { addTodo } from "../utils/store/todoList";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo, toggleComplete, removeTodo } from "../utils/store/todoList"; // Assuming these actions are in your store
 
 const ToDo = () => {
-  const [todoList, setTodoList] = useState([]);
   const inputRef = useRef();
-
   const dispatch = useDispatch();
+
+  // Get the todo list from Redux store
+  const todoList = useSelector((state) => state.toDo.todoItems);
+
+  // console.log(todoList);
 
   const add = () => {
     const inputText = inputRef.current.value.trim();
@@ -21,20 +24,22 @@ const ToDo = () => {
       text: inputText,
       isComplete: false,
     };
-    setTodoList((prev) => [...prev, newTodo]);
+
+    // Dispatch the addTodo action with the newTodo item
+    dispatch(addTodo(newTodo));
+
+    // Clear the input field
     inputRef.current.value = "";
   };
 
-  const deleteTodo = (id) => {
-    setTodoList((prev) => prev.filter((todo) => todo.id !== id));
+  const handleDeleteTodo = (id) => {
+    // Dispatch the deleteTodo action with the id of the to-do item to be deleted
+    dispatch(removeTodo(id));
   };
 
-  const toggleComplete = (id) => {
-    setTodoList((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo
-      )
-    );
+  const handleToggleComplete = (id) => {
+    // Dispatch the toggleComplete action with the id of the to-do item to toggle its completed status
+    dispatch(toggleComplete(id));
   };
 
   return (
@@ -62,11 +67,12 @@ const ToDo = () => {
             id={item.id}
             text={item.text}
             isComplete={item.isComplete}
-            deleteTodo={deleteTodo}
-            toggleComplete={toggleComplete}
+            deleteTodo={handleDeleteTodo}
+            toggleComplete={handleToggleComplete}
           />
         ))}
       </div>
+      {console.log()}
     </div>
   );
 };

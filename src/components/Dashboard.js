@@ -5,6 +5,7 @@ import Requirements from "./Requirements";
 import ToDo from "./ToDo";
 import Payment from "./Payment";
 import AddEnquiry from "./AddEnquiry";
+import Search from "./Search";
 
 const Dashboard = () => {
   const [mainContent, setMainContent] = useState("Dashboard");
@@ -34,7 +35,7 @@ const Dashboard = () => {
       case "Filter Users":
         return <div>Filter Users Section</div>;
       case "Search":
-        return <div>Search Database</div>;
+        return <Search />;
       case "Trash":
         return <div>Trash Section</div>;
       case "Followup":
