@@ -46,7 +46,7 @@ const Payment = ({ onEditingChange }) => {
   };
 
   return (
-    <div className="h-full px-4 overflow-y-auto max-h-[80vh]"> {/* Adjust max height as needed */}
+    <div className="h-full px-4 overflow-y-auto max-h-screen hide-scrollbar"> {/* Updated max height and overflow */}
       <div className="flex h-full justify-start items-center flex-col w-full">
         <label className="mt-4 font-semibold text-lg italic">Payment details for today:</label>
         <table className="mt-4 border-collapse w-full">

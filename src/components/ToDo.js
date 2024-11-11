@@ -44,6 +44,7 @@ const ToDo = () => {
 
   return (
     <div className="flex flex-1 flex-col justify-center items-center rounded-3xl">
+      <h1 className="italic font-semibold mt-10">To-do List</h1>
       <div className="flex items-center my-7 bg-gray-200 rounded-full">
         <input
           ref={inputRef}
@@ -60,7 +61,7 @@ const ToDo = () => {
       </div>
 
       {/* ---------todo list--------- */}
-      <div className="w-full px-5">
+      <div className="w-full px-5 overflow-scroll max-h-[80vh] hide-scrollbar">
         {todoList.map((item) => (
           <ToDoItems
             key={item.id}

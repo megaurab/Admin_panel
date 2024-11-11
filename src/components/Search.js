@@ -31,7 +31,7 @@ const Search = () => {
       <h2 className="text-center text-2xl font-semibold mb-4 italic">Enquiry Data</h2>
       <table className="min-w-full table-auto border-collapse shadow-lg">
         <thead>
-          <tr className="bg-teal-600 text-white text-center">
+          <tr className="bg-indigo-200 text-white text-center">
             <th className="px-4 py-2 border whitespace-nowrap italic">Sl No.</th>
             <th className="px-4 py-2 border whitespace-nowrap italic">Company Name</th>
             <th className="px-4 py-2 border whitespace-nowrap italic">Email</th>
