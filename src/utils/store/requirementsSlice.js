@@ -10,8 +10,15 @@ const requirementsSlice = createSlice({
     addRequirement: (state, action) => {
       state.data.push(action.payload);
     },
+    editRequirement: (state, action) => {
+      const { index, newRequirement } = action.payload;
+      state.data[index] = newRequirement;
+    },
+    deleteRequirement: (state, action) => {
+      state.data.splice(action.payload, 1);
+    },
   },
 });
 
-export const { addRequirement } = requirementsSlice.actions;
+export const { addRequirement, editRequirement, deleteRequirement } = requirementsSlice.actions;
 export default requirementsSlice.reducer;
