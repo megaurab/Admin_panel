@@ -98,7 +98,7 @@ const Requirements = ({ data }) => {
 
       {/* Display list of requirements or business types */}
       <div className="w-[60%] mt-4 mb-4 max-h-[300px] overflow-y-auto hide-scrollbar">
-        <h3 className="text-lg font-bold mb-4 italic">{data}:</h3>
+        <h3 className="text-lg font-bold mb-4 italic ml-2">{data}:</h3>
         <ul>
           {main === "Requirements" && requirementsList.map((req, index) => (
             <li key={index} className="flex justify-between items-center mb-2 p-2 bg-gray-100 rounded italic">
